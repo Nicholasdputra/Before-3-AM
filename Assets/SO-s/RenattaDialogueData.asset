@@ -12,4 +12,233 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bb9b5b6e466d248b106b718c81877b, type: 3}
   m_Name: RenattaDialogueData
   m_EditorClassIdentifier: 
-  dialogues: []
+  dialogues:
+  - ourQuestion: Ask her name
+    npcQuestionResponse:
+    - M-My name?
+    - "Um\u2026 it\u2019s Renatta\u2026 I-I\u2019m\u2026 I\u2019m just\u2026 just
+      a Streamer\u2026"
+    - "I-I\u2019m really bad at talking like this\u2026 sorry\u2026"
+    - W-What about you? W-What is your name?
+    playerChoices:
+    - ourChoice: Tell her your real name
+      responseToOurChoice:
+      - " {PlayerName}, *giggles* i-it\u2019s a nice name"
+      hasFollowUpPlayerResponse: 0
+      followUpPlayerChoices: []
+    - ourChoice: Stay silent
+      responseToOurChoice:
+      - ..........
+      - ..................
+      - 'um  ... '
+      - ' ... I...'
+      - ................................
+      hasFollowUpPlayerResponse: 1
+      followUpPlayerChoices:
+      - followUpChoice: Tell her your real name
+        responseToFollowUpChoice:
+        - " P-Please don\u2019t do s-something like that again {PlayerName}"
+    hasBeenSaid: 0
+  - ourQuestion: Ask what she remember
+    npcQuestionResponse:
+    - I-I was I was streaming..
+    - 'It was just a normal night... '
+    - "I was playing many indie games. L-Like \u201Cdealer\u2019s deceit\u201D and
+      t-there is this horror game.. "
+    - "I was playing many indie games. L-Like \u201Cdealer\u2019s deceit\u201D and
+      t-there is this horror game.. "
+    - 'huh.. '
+    - "I-I I can\u2019t remember it\u2019s name"
+    - Last thing i remember was suddenly I heard something behind me
+    - "B-But it was probably just\u2026 my imagination, right?"
+    - "T-Then my screen glitched. It\u2026 it turned white. Completely white"
+    - "T-Then\u2026"
+    - "\u2026I was here."
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask why she seems so scared
+    npcQuestionResponse:
+    - I-I um.. I... Sorry
+    - "I... I just... I\u2019ve never been good with people."
+    - Or b-being trapped with strangers.
+    - and t-this feels like those game where not everyone survive till the end.
+    - "I-I\u2019ve always been\u2026 kind of bad with this kinda games\u2026"
+    - "I guess\u2026 I\u2019m scared of being the one everyone picks."
+    - "Sometimes\u2026 people just want to blame someone."
+    - "I-I don\u2019t want to be blamed\u2026"
+    - "That\u2019s all\u2026"
+    - I-I will answer all of your question, if that makes you trust me... p-please
+      trust me
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask her is Rennata is a real  name
+    npcQuestionResponse:
+    - "uh\u2026 well\u2026 no, actually."
+    - "Renatta\u2019s my streamer name."
+    - "I-It\u2019s kind of like\u2026 my stage name, you know?"
+    - "My real name\u2019s\u2026 um\u2026"
+    - "W-Well\u2026 I don\u2019t really share that."
+    - "S-Sorry! I-I know you\u2019re curious, but\u2026"
+    - "It feels weird saying it out loud here\u2026"
+    - "But\u2026 i-if we get out of here\u2026 maybe I\u2019ll tell you then."
+    - M-Maybe.
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask more about her job
+    npcQuestionResponse:
+    - "Oh, um\u2026 I-I\u2019m a streamer."
+    - A Vtuber actually...
+    - "I usually play games, chat with my viewers\u2026 you know, just\u2026 hanging
+      out."
+    - "It\u2019s not like I-I\u2019m super famous or anything..."
+    - But I-I really enjoy it.
+    - "S-Streaming\u2019s kind of like\u2026 my little safe place."
+    - I like that I can be a bit braver behind my model.
+    - "P-People see the character, but\u2026 it\u2019s still me, you know?"
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask her relationship with others
+    npcQuestionResponse:
+    - "N-No\u2026 I don\u2019t know anyone here."
+    - "I\u2019ve never seen them before\u2026 not in real life\u2026 "
+    - "T-That Old Man... I\u2026 I-I can\u2019t even look at him\u2026"
+    - "It\u2019s not like I-I\u2019m super famous or anything..."
+    - "H-He looks so\u2026 so angry all the time\u2026"
+    - "I feel like if I even breathe too loud near him, he\u2019d just.."
+    - "He\u2019d snap and yell at me\u2026 or worse\u2026"
+    - "T-The younger one.. He seems nice, b-but i don\u2019t know what is in his
+      mind.."
+    - "T-The younger one.. He seems nice, b-but i don\u2019t know what is in his
+      mind.."
+    - "I-It\u2019s scary\u2026 when you don\u2019t know if someone is safe or dangerous\u2026"
+    - "But at least he doesn\u2019t look like he\u2019s going to explode like the
+      Old Man"
+    - "I don\u2019t know why but\u2026"
+    - "When I\u2019m with you\u2026 I feel like I can breathe a little easier"
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask What Her Opinion About This Situation
+    npcQuestionResponse:
+    - "U-Um\u2026 well\u2026 I\u2026 I Hate it"
+    - "It feels like\u2026 a game that\u2019s built to make us doubt each other."
+    - "L-Like\u2026 no matter what we do, someone\u2019s supposed to get hurt."
+    - "But\u2026 I also think\u2026 maybe that\u2019s what the game wants us to think."
+    - "Maybe\u2026 there\u2019s another way to end this."
+    - "I feel like if I even breathe too loud near him, he\u2019d just.."
+    - "I-I mean\u2026 maybe we don\u2019t have to sacrifice anyone. "
+    - M-Maybe we can trust each other
+    - "I-I\u2019d rather try\u2026 and maybe get hurt\u2026"
+    - Than survive by tearing everyone apart.
+    - ...
+    - "But i don\u2019t think that can happen... not in this situation.."
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask What She Thinks Will Happen When Time Runs Out
+    npcQuestionResponse:
+    - "T-The time limit\u2026"
+    - "I\u2026 I don\u2019t know."
+    - "I-I\u2019ve played games like this before\u2026"
+    - "Where time runs out and someone\u2026 just\u2026 disappears."
+    - "Sometimes\u2026 sometimes the game decides for you."
+    - "Sometimes it\u2026 it just punishes everyone."
+    - "I\u2019m scared that\u2026 if we wait too long\u2026"
+    - "\u2026we won\u2019t get to choose anymore."
+    - "I-I don\u2019t want anyone to\u2026 disappear."
+    - "But I\u2026 I don\u2019t want to choose wrong either."
+    - "Do you\u2026 think we\u2019ll have to\u2026 sacrifice someone?"
+    playerChoices:
+    - ourChoice: Ask Ask If She Thinks She Could Make That Choice
+      responseToOurChoice:
+      - "I\u2026 I don\u2019t know\u2026"
+      - "I\u2019m scared."
+      - "I don\u2019t want to hurt anyone\u2026"
+      - "I don\u2019t think I could ever\u2026 make a perfect choice."
+      - "I\u2019m not that smart. I overthink everything."
+      - "And what if I get it wrong\u2026? "
+      - "W-What if it\u2019s my fault\u2026?"
+      - ...
+      - Even if it feels wrong, I-I.. I still want to survive
+      - "S-So I\u2019ll choose the person who feels wrong to me\u2026"
+      - "even if I-I can\u2019t explain it."
+      hasFollowUpPlayerResponse: 0
+      followUpPlayerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask her who she thinks the impostor is
+    npcQuestionResponse:
+    - "U-Um\u2026"
+    - "C-Can I\u2026 really tell you?"
+    - "I think it\u2019s the Old Man"
+    - "H-He always looks so angry\u2026"
+    - "Like\u2026 like he\u2019s going to explode if you say the wrong thing."
+    - " I-I don\u2019t know, it\u2019s just\u2026"
+    - "I feel really, really uncomfortable when he\u2019s around\u2026"
+    - "B-But\u2026 maybe I\u2019m just overthinking\u2026"
+    - "I-I could be wrong\u2026 right?"
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask her if she the impostor what would she do
+    npcQuestionResponse:
+    - "\u2026Eh!?"
+    - "W-Why\u2026 why would you ask me that?"
+    - "Do you\u2026"
+    - "Do you think it\u2019s me?"
+    - "(tears start to fallling. even though she\u2019s trying to wipe them away.
+      Her voice gets more broken, like she\u2019s struggling to breathe through the
+      panic)"
+    - "I\u2026 I thought\u2026 you trusted me\u2026"
+    - "I-I\u2019m not lying\u2026 I swear I\u2019m not lying\u2026 I-I wouldn\u2019t\u2026
+      I couldn\u2019t\u2026"
+    - "I really thought\u2026 you were the only one I could trust here\u2026"
+    - "B-But now it feels like\u2026 you\u2019re doubting me too\u2026"
+    - "(She sniffles hard, wiping her face over and over, but the tears won\u2019t
+      stop.)"
+    - "I-I\u2019m sorry\u2026 I\u2019m sorry\u2026"
+    - "M-Maybe I shouldn\u2019t have talked so much\u2026 "
+    - "Maybe I\u2019m just being annoying"
+    - "(Her breathing becomes more rapid, like she\u2019s spiraling, about to completely
+      break down.)"
+    playerChoices:
+    - ourChoice: ' Try to calm her down'
+      responseToOurChoice:
+      - "\u2026Y-You still\u2026?"
+      - You really still trust me?
+      - "\u2026"
+      - "I\u2026 I really thought I messed up\u2026"
+      hasFollowUpPlayerResponse: 0
+      followUpPlayerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask her if she the impostor what would she do
+    npcQuestionResponse:
+    - "\u2026Eh!?"
+    - "W-Why\u2026 why would you ask me that?"
+    - "Do you\u2026"
+    - "Do you think it\u2019s me?"
+    - "(tears start to fallling. even though she\u2019s trying to wipe them away.
+      Her voice gets more broken, like she\u2019s struggling to breathe through the
+      panic)"
+    - "I\u2026 I thought\u2026 you trusted me\u2026"
+    - "I-I\u2019m not lying\u2026 I swear I\u2019m not lying\u2026 I-I wouldn\u2019t\u2026
+      I couldn\u2019t\u2026"
+    - "I really thought\u2026 you were the only one I could trust here\u2026"
+    - "B-But now it feels like\u2026 you\u2019re doubting me too\u2026"
+    - "(She sniffles hard, wiping her face over and over, but the tears won\u2019t
+      stop.)"
+    - "I-I\u2019m sorry\u2026 I\u2019m sorry\u2026"
+    - "M-Maybe I shouldn\u2019t have talked so much\u2026 "
+    - "Maybe I\u2019m just being annoying"
+    - "(Her breathing becomes more rapid, like she\u2019s spiraling, about to completely
+      break down.)"
+    playerChoices:
+    - ourChoice: ' Try to calm her down'
+      responseToOurChoice:
+      - "\u2026Y-You still\u2026?"
+      - You really still trust me?
+      - "\u2026"
+      - "I\u2026 I really thought I messed up\u2026"
+      - "I thought you\u2019d leave me too\u2026"
+      - (She wipes her eyes quickly, still trembling, but she smiles a little bit)
+      - "Thank you\u2026"
+      - That really means a lot to me.
+      hasFollowUpPlayerResponse: 0
+      followUpPlayerChoices: []
+    hasBeenSaid: 0

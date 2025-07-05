@@ -68,3 +68,117 @@ MonoBehaviour:
     - But hey, maybe i am overthingking it.
     playerChoices: []
     hasBeenSaid: 0
+  - ourQuestion: Ask more about his job
+    npcQuestionResponse:
+    - "Oh, my job?  I\u2019m a game programmer."
+    - "Mostly system design, backend mechanics, things people don\u2019t really see
+      but are super important. "
+    - "Mostly system design, backend mechanics, things people don\u2019t really see
+      but are super important. "
+    - I like building rules. Worlds with boundaries.
+    - "But I also like\u2026 bending those rules."
+    - "Sometimes I sneak in things the system isn\u2019t prepared for."
+    - "Unpredictable glitches, weird edge cases\u2026 just to see how the game reacts."
+    - You can learn a lot about a system when you break it.
+    - You can learn even more about players when you put them in impossible situations.
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask his Relationship With the Others
+    npcQuestionResponse:
+    - Oh, them?
+    - "I\u2019ve never met them before"
+    - "The girl, she seems super nervous, but who wouldn\u2019t be in this situations."
+    - That man, he looks like he will beat you, if you talk to him.
+    - I think we are all strangers in this room
+    - "Though\u2026 you\u2019re watching me really closely."
+    - "That\u2019s a little bit uncomfortable, but i guess it is normal to be curious."
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask who do you think kidnapped us
+    npcQuestionResponse:
+    - if this was a kidnapping...
+    - "that\u2019s the part that doesn\u2019t make sense to me"
+    - A normal kidnapper wants something. Money, Revenge or a Message.
+    - But this? No ransom. No demands. No communication.
+    - "Just\u2026 silence and a game."
+    - "That\u2019s why I think this isn\u2019t a kidnapping."
+    - "Like someone\u2019s testing how people break."
+    - What they choose to protect.
+    - "What they\u2019re willing to sacrifice."
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask what he thinks about this situation
+    npcQuestionResponse:
+    - You mean this impostor thing?
+    - "Yeah\u2026 It\u2019s pretty messed up when you think about it."
+    - "Waking up with a note like that, no explanation, no exit\u2026"
+    - "It\u2019s like someone\u2019s playing with us."
+    - "Watching how fast we\u2019ll turn on each other."
+    - "But you know what\u2019s interesting?"
+    - The impostor might not even need to do anything.
+    - 'Just drop that one sentence: "One of us is the impostor"'
+    - "\u2026and let paranoia do the rest."
+    - "It\u2019s kind of brilliant, in a really dark way."
+    - "And\u2026 honestly... It\u2019s almost\u2026 fun?"
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask Who do you think the impostor is
+    npcQuestionResponse:
+    - ......
+    - You want to know who I think the impostor is?
+    - hmm... That man temper makes him look guilty.
+    - "But sometimes people like him act that way because they\u2019re scared of
+      losing control."
+    - "Not because they\u2019re hiding something."
+    - "That girl\u2026 she\u2019s afraid of something."
+    - "Whether she\u2019s guilty or not\u2026 she is very suspicious."
+    - "Her fear isn\u2019t fake. But fear doesn\u2019t always mean she\u2019s innocent."
+    - "If you\u2019re asking for a name\u2026"
+    - "I don\u2019t have one yet. I don\u2019t guess."
+    - Not when the cost of being wrong could be everything.
+    - "When you speak too soon\u2026 you might save the impostor."
+    - "When you wait too long\u2026 you might pay with time you don\u2019t have."
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask why he think this situation is fun
+    npcQuestionResponse:
+    - "Ah, that\u2019s what you\u2019re wondering, huh?"
+    - "Relax, i\u2019m not a psycho"
+    - "It\u2019s not about the fear"
+    - "It\u2019s not about the danger"
+    - "It\u2019s about the design"
+    - Whoever made this.. they knew exactly what they were doing.
+    - "Drop random strangers in a room, leave a single line \u201COne of us is the
+      impostor.\u201D"
+    - No traps... No need for weapons... Just doubt...
+    - And humans? We destroy ourselves with that alone.
+    - But the best part?
+    - "There\u2019s always a cost."
+    - The faster you point fingers, the less you think.
+    - The longer you wait, the more the cost creeps up on you.
+    - The longer you wait, the more the cost creeps up on you.
+    - Time. Trust. Sanity.
+    - You always pay something.
+    - "And that\u2019s what makes this\u2026 fun."
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask Where do you think are we
+    npcQuestionResponse:
+    - If I were the impostor?
+    - "I think\u2026"
+    - "I\u2019d try to make sure no one ever found out."
+    - Not through lies, not through trickery.
+    - But i will make the others trust me
+    - I would be honest and helpful then i make people feel safe around me.
+    - "Because the best impostor\u2026 is the one no one wants to doubt."
+    - "But I\u2019m not telling you this to scare you."
+    - "I\u2019m telling you this because I don\u2019t want you to get trapped in
+      someone else\u2019s game."
+    - Keep thinking. Keep questioning... Even me.
+    - "If I were the impostor\u2026 I hope you will find me... and stop me."
+    playerChoices:
+    - ourChoice: Don't wory, i will
+      responseToOurChoice: []
+      hasFollowUpPlayerResponse: 0
+      followUpPlayerChoices: []
+    hasBeenSaid: 0

@@ -12,139 +12,127 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bb9b5b6e466d248b106b718c81877b, type: 3}
   m_Name: GunawanDialogueData
   m_EditorClassIdentifier: 
-  playerName: Player
   dialogues:
-  - prompt: Ask About His Name
-    NPCFullResponse:
-    - My name is Nikolas, I'm from Teyvat
-    - What about you? What's your name?
-    PlayerChoices:
-    - choiceType: Truthful
-      choiceText:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      nextDialogue:
-      - Alright, nice to meet you {PlayerName}
-    - choiceType: Silent
-      choiceText:
-      - 
-      - 
-      - 
-      nextDialogue:
-      - Damn... Alright man
-    - choiceType: Lie
-      choiceText:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      nextDialogue:
-      - Alright, nice to meet you bob
+  - ourQuestion: Ask his name
+    npcQuestionResponse:
+    - "Hah? You\u2019re asking my name now? We\u2019ve been sitting here long enough."
+    - "It\u2019s Gunawan. That\u2019s all you need to know."
+    - "Don\u2019t waste my time with small talk."
+    playerChoices:
+    - ourChoice: Ask Are you not curious about my name
+      responseToOurChoice:
+      - Hah. Your name? Seriously?
+      - Oh please. Why would I waste brain space on that?
+      - "Nah. I\u2019ll just call you\u2026 Pebble."
+      - Yeah, that works. Small, kinda useless, but always in the way.
+      - So get used to it, Pebble.
+      - "I\u2019m not calling you anything else."
+      hasFollowUpPlayerResponse: 0
+      followUpPlayerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask what he remember
+    npcQuestionResponse:
+    - "Tch. Of course you\u2019d ask that."
+    - What do you think I remember?
+    - Nothing useful, if you must know.
+    - I was at work. Doing my job like always.
+    - Then I blacked out. Just like that.
+    - Woke up in this stupid room with you people.
+    - No ransom. No demands. No warning. Just some lousy note telling us to find
+      an impostor.
+    - Ridiculous.
+    - "Look, I don\u2019t care about the details."
+    - "Whoever dragged me into this is gonna regret it. That\u2019s all that matters."
+    playerChoices:
+    - ourChoice: Keep staring at him
+      responseToOurChoice:
+      - "Tch. What\u2019s with that look, Pebble?"
+      - "You think if you stare long enough I\u2019ll spill something"
+      - "I already told you. I was at work. I blacked out. That\u2019s it."
+      - "...Tch. You\u2019re really not gonna drop this, huh?"
+      - Fine. You want something? Here, let me tell you something
+      - "There was\u2026 a letter. On my desk."
+      - "Didn\u2019t open it. Just saw my name on it. Next thing I know *bam* I found
+        three brats in front of me."
+      - "That\u2019s all you\u2019re getting.  Don\u2019t push your luck."
+      hasFollowUpPlayerResponse: 0
+      followUpPlayerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask his relationship with other
+    npcQuestionResponse:
+    - You mean those two clowns?
+    - That calm guy?
+    - "I\u2019m calling him Brick Wall."
+    - You talk, you push, you poke.. nothing.
+    - No cracks, no reactions. Useless.
+    - "I don\u2019t trust walls. They either hide something or fall on you when you
+      least expect it."
+    - "And that shaky girl? She\u2019s Bubble."
+    - Soft, weightless, one poke and pop!
+    - "She\u2019s not a threat. She\u2019s just there. Floating around, looking scared,
+      waiting for someone else to make decisions."
+    - And you?
+    - Still Pebble.
+    - "You\u2019re not dangerous, you\u2019re just in the way."
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask him who he thinks the impostor is
+    npcQuestionResponse:
+    - "Tch. Of course one of them\u2019s the impostor."
+    - "And I\u2019ve got my eyes on Brick Wall."
+    - "Hah That guy? something\u2019s off about him."
+    - "He\u2019s too calm, too steady."
+    - "People don\u2019t stay that cool unless they know they\u2019re in control."
+    - "Unless they\u2019ve got something to hide."
+    - "I\u2019ve met his type before."
+    - Poker face, always thinking three steps ahead.
+    - "They\u2019re usually the ones pulling the strings."
+    - "He\u2019s sitting there, watching us like we\u2019re pieces on his game board."
+    - "He\u2019s sitting there, watching us like we\u2019re pieces on his game board."
+    playerChoices:
+    - ourChoice: What about the girl?
+      responseToOurChoice:
+      - "Bubble? Please. She\u2019s harmless."
+      - "She\u2019s just sitting there, shaking like she\u2019s about to break."
+      - " If she\u2019s the impostor, then this whole thing\u2019s a joke."
+      - And you, Pebble?
+      - "You\u2019re barely a speed bump."
+      - "Can\u2019t even bother suspecting you right now."
+      - "Nah, it\u2019s Brick Wall."
+      - "I\u2019d bet on it."
+      - Something about that guy just screams "trap."
+      hasFollowUpPlayerResponse: 0
+      followUpPlayerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask what will you do if you are the impostor
+    npcQuestionResponse:
+    - "Hah. Let me guess\u2026"
+    - "You\u2019re wondering what I\u2019d do if I was the impostor, huh?"
+    - HAHAHHAHAHA you think i will idly sit right here
+    - "Nah I\u2019d win."
+    - "I wouldn\u2019t waste time playing nice."
+    - "I\u2019d move fast, hit hard, and make sure no one ever saw it coming."
+    - So yeah. If I was the impostor, Pebble?
+    - "You wouldn\u2019t be sitting there right now."
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask If He Cares What Happens to the Others
+    npcQuestionResponse:
+    - Hah? Care? About them?
+    - Listen, Pebble.
+    - "This isn\u2019t some heartwarming team building exercise."
+    - "I don\u2019t need to care. I just need to win."
+    - "That\u2019s the whole point, right?"
+    - "Brick Wall? Can\u2019t trust him."
+    playerChoices:
+    - ourChoice: What about her?
+      responseToOurChoice:
+      - "Bubble? She\u2019ll crumble with or without me."
+      - "What\u2019s there to care about?"
+      - "I didn\u2019t come here with friends. I\u2019m not leaving with any."
+      - "That\u2019s how I survive games like this."
+      - "What? You hoping I\u2019ll say something nice?"
+      - "Sorry, Pebble. That\u2019s not in my vocabulary."
+      hasFollowUpPlayerResponse: 0
+      followUpPlayerChoices: []
     hasBeenSaid: 0
