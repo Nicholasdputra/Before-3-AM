@@ -5,9 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DialogueDataSO", menuName = "ScriptableObjects/DialogueDataSO")]
 public class DialogueDataSO : ScriptableObject
 {
-    [Header("Player Settings")]
-    public string playerName = PlayerPrefs.GetString("PlayerName", "Player");
-    
     [Header("Dialogue Data")]
     public DialogueSO[] dialogues;
 }
@@ -15,20 +12,25 @@ public class DialogueDataSO : ScriptableObject
 [System.Serializable]
 public class DialogueSO
 {
-    public string prompt;
-    public string[] NPCFullResponse;
-    public PlayerChoiceSO[] PlayerChoices;
+    public string ourQuestion;
+    public string[] npcQuestionResponse;
+    public PlayerChoiceSO[] playerChoices;
     public bool hasBeenSaid;
-
-    //Make sure to format {PlayerName} in everything with the player's name
 }
 
 [System.Serializable]
 public class PlayerChoiceSO
 {
-    public string choiceType;
-    public string[] choiceText;
-    public string[] nextDialogue;
-    
-    // Make sure to format {PlayerName} with the player's name
+    public string ourChoice;
+    public string[] responseToOurChoice;
+    public bool hasFollowUpPlayerResponse;
+    [SerializeField] // Make it more explicit
+    public FollowUpPlayerChoiceSO[] followUpPlayerChoices;
+}
+
+[System.Serializable]
+public class FollowUpPlayerChoiceSO
+{
+    public string followUpChoice;
+    public string[] responseToFollowUpChoice;
 }

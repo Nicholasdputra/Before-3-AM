@@ -12,4 +12,139 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bb9b5b6e466d248b106b718c81877b, type: 3}
   m_Name: GunawanDialogueData
   m_EditorClassIdentifier: 
-  dialogues: []
+  playerName: Player
+  dialogues:
+  - prompt: Ask About His Name
+    NPCFullResponse:
+    - My name is Nikolas, I'm from Teyvat
+    - What about you? What's your name?
+    PlayerChoices:
+    - choiceType: Truthful
+      choiceText:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      nextDialogue:
+      - Alright, nice to meet you {PlayerName}
+    - choiceType: Silent
+      choiceText:
+      - 
+      - 
+      - 
+      nextDialogue:
+      - Damn... Alright man
+    - choiceType: Lie
+      choiceText:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      nextDialogue:
+      - Alright, nice to meet you bob
+    hasBeenSaid: 0
