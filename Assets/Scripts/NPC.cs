@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class NPC : MonoBehaviour
     [SerializeField] public string firstTimeBaseDialogue;
     [SerializeField] public string nonFirstTimeBaseDialogue;
     [SerializeField] public string notFirstQuestionDialogue;
+    [SerializeField] public string gatherToVoteDialogue;
+    [SerializeField] public string chosenForVoteDialogue;
 
     public bool isFirstTime = true;
 

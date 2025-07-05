@@ -33,7 +33,8 @@ MonoBehaviour:
       - followUpChoice: '!!?!?'
         responseToFollowUpChoice:
         - Ahahahaha, relax man, I can see your id card, y'know?
+        - Im not some kind of psychic yknow
       - followUpChoice: How did you know?
         responseToFollowUpChoice:
         - I meannn, you do have your id card right there on you y'know
-    hasBeenSaid: 1
+    hasBeenSaid: 0

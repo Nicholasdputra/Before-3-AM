@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 27429796}
   - component: {fileID: 27429795}
   m_Layer: 5
-  m_Name: HowToPlayTitle
+  m_Name: ArchivesTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -571,7 +571,7 @@ GameObject:
   - component: {fileID: 213551749}
   - component: {fileID: 213551750}
   m_Layer: 5
-  m_Name: HowToPlayPanel
+  m_Name: ArchivesPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 246622510}
   - component: {fileID: 246622509}
   m_Layer: 5
-  m_Name: How To Play Button
+  m_Name: Archives Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 416143448}
   - component: {fileID: 416143447}
   m_Layer: 5
-  m_Name: HowToPlayPanelBackground
+  m_Name: ArchivesBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4122,7 +4122,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: How To Play
+  m_text: Archives
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0f9fa9f80580e2458d0f994be8c5d20, type: 2}
   m_sharedMaterial: {fileID: -8129747916722256265, guid: f0f9fa9f80580e2458d0f994be8c5d20, type: 2}

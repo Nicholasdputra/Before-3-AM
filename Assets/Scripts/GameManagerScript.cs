@@ -57,6 +57,8 @@ public class GameManagerScript : MonoBehaviour
             ResumeGame();
             CloseAllPanels();
         }
+
+
     }
 
     void CloseAllPanels()
