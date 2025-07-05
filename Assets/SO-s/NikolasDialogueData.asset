@@ -38,3 +38,33 @@ MonoBehaviour:
         responseToFollowUpChoice:
         - I meannn, you do have your id card right there on you y'know
     hasBeenSaid: 0
+  - ourQuestion: Ask what he remember
+    npcQuestionResponse:
+    - I remember working on some code at home.
+    - Just another all-nighter.
+    - ...
+    - Actually.. now i remember... there is something weird happens.
+    - My code is working completely fine, there is no bugs. Weird right?
+    - "Haha jokes aside. that\u2019s all i can remember."
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask How can you be so calm
+    npcQuestionResponse:
+    - "Oh! that\u2019s what\u2019s bothering you?"
+    - Fair enough
+    - "I guess I\u2019ve always been like this."
+    - "Even when things get weird\u2026 panic never helps, right?"
+    - "Besides\u2026 I get the feeling we\u2019re being watched."
+    - "But i don\u2019t know who or what is watching us"
+    playerChoices: []
+    hasBeenSaid: 0
+  - ourQuestion: Ask Where do you think are we
+    npcQuestionResponse:
+    - Hmm.. Good question.
+    - "Honestly? i don\u2019t know."
+    - Cold walls, no windows, just creepy notes in the center.
+    - Kidnapped?... probably, but it just too clean.
+    - It almost feel like we are in a simulation or backrooms hahaha
+    - But hey, maybe i am overthingking it.
+    playerChoices: []
+    hasBeenSaid: 0
