@@ -14,6 +14,7 @@ public class DialogueSO
 {
     public bool hasBeenSaid;
     public string ourQuestion;
+    public int timeItWillTake;
     public string[] npcQuestionResponse;
     public bool hasPlayerChoices;
     public PlayerChoiceSO[] playerChoices;

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PreGameScript : MonoBehaviour
 {
+    AudioManagerScript audioManager;
     public TMP_InputField usernameInputField;
     public TextMeshProUGUI warningText;
     public Button confirmButton;
@@ -23,6 +24,8 @@ public class PreGameScript : MonoBehaviour
 
     void Start()
     {
+        if(audioManager == null)
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         // Listen for when user finishes editing (including pressing Enter)
         usernameInputField.onEndEdit.AddListener(OnUsernameEndEdit);
 
@@ -53,6 +56,7 @@ public class PreGameScript : MonoBehaviour
 
     void ConfirmButtonClicked()
     {
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
         string username = usernameInputField.text;
         if (CheckForValidUsername(username))
         {
@@ -67,6 +71,7 @@ public class PreGameScript : MonoBehaviour
         Debug.Log("Username confirmed, loading game scene.");
         nameInputView.SetActive(false);
         disclamerView.SetActive(true);
+        audioManager.StopBGM();
         foreach (string text in preGameTexts)
         {
             disclaimerText.text = ""; // Clear previous text
@@ -75,6 +80,7 @@ public class PreGameScript : MonoBehaviour
             if (text == preGameTexts[preGameTexts.Length - 1])
             {
                 disclaimerText.color = Color.red;
+                audioManager.PlaySFX(audioManager.before3AmSFXClip);
                 disclaimerText.fontSize = 100; // Optional: Increase font size for emphasis
                 disclaimerText.font = emphasisFont; // Use emphasis font
             }
@@ -86,10 +92,10 @@ public class PreGameScript : MonoBehaviour
             }
 
             foreach (char letter in text)
-                {
-                    disclaimerText.text += letter;
-                    yield return new WaitForSecondsRealtime(0.05f); // Use realtime to work with timeScale = 0
-                }
+            {
+                disclaimerText.text += letter;
+                yield return new WaitForSecondsRealtime(0.05f); // Use realtime to work with timeScale = 0
+            }
             yield return new WaitForSeconds(2f); // Optional delay for user feedback
         }
         SceneManager.LoadScene("GameScene");
@@ -97,6 +103,7 @@ public class PreGameScript : MonoBehaviour
 
     void BackButtonClicked()
     {
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
         // Go back to the main menu or previous scene
         Debug.Log("Back button clicked, returning to main menu.");
         SceneManager.LoadScene("MainMenu");

@@ -7,6 +7,7 @@ using TMPro;
 
 public class SettingsScript : MonoBehaviour
 {
+    AudioManagerScript audioManager;
     public static SettingsScript Instance;
 
     [SerializeField] Slider bgmVolumeSlider;
@@ -20,10 +21,41 @@ public class SettingsScript : MonoBehaviour
 
     void Start()
     {
+        if(audioManager == null)
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         LoadSettings();
-        bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
-        sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
-        dialogueVolumeSlider.onValueChanged.AddListener(SetDialogueVolume);
+        
+        // Add null checks and debug logs
+        if (bgmVolumeSlider != null)
+        {
+            bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
+            Debug.Log("BGM slider listener added");
+        }
+        else
+        {
+            Debug.LogError("BGM Volume Slider is null!");
+        }
+        
+        if (sfxVolumeSlider != null)
+        {
+            sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+            Debug.Log("SFX slider listener added");
+        }
+        else
+        {
+            Debug.LogError("SFX Volume Slider is null!");
+        }
+        
+        if (dialogueVolumeSlider != null)
+        {
+            dialogueVolumeSlider.onValueChanged.AddListener(SetDialogueVolume);
+            Debug.Log("Dialogue slider listener added");
+        }
+        else
+        {
+            Debug.LogError("Dialogue Volume Slider is null!");
+        }
+        
         backButton.onClick.AddListener(CloseSettings);
     }
 
@@ -37,37 +69,55 @@ public class SettingsScript : MonoBehaviour
 
     public void SetBGMVolume(float volume)
     {
-        // Set the BGM volume on the specific AudioSource
-        if (bgmAudioSource != null)
+        // Set the BGM volume on the AudioManager's AudioSource
+        if (audioManager != null)
         {
-            bgmAudioSource.volume = volume;
+            // Access the AudioManager's BGM AudioSource (first child)
+            AudioSource bgmSource = audioManager.transform.GetChild(0).GetComponent<AudioSource>();
+            if (bgmSource != null)
+            {
+                bgmSource.volume = volume;
+                Debug.Log("Setting BGM volume to: " + volume);
+            }
         }
-        Debug.Log("BGM Volume set to: " + volume);
         PlayerPrefs.SetFloat("BGMVolume", volume);
     }
 
     public void SetSFXVolume(float volume)
     {
-        if (sfxAudioSource != null)
+        // Set the SFX volume on the AudioManager's AudioSource
+        if (audioManager != null)
         {
-            sfxAudioSource.volume = volume;
+            // Access the AudioManager's SFX AudioSource (second child)
+            AudioSource sfxSource = audioManager.transform.GetChild(1).GetComponent<AudioSource>();
+            if (sfxSource != null)
+            {
+                sfxSource.volume = volume;
+                Debug.Log("Setting SFX volume to: " + volume);
+            }
         }
-        Debug.Log("SFX Volume set to: " + volume);
         PlayerPrefs.SetFloat("SFXVolume", volume);
     }
 
     public void SetDialogueVolume(float volume)
     {
-        if (dialogueAudioSource != null)
+        // Set the Dialogue volume on the AudioManager's AudioSource
+        if (audioManager != null)
         {
-            dialogueAudioSource.volume = volume;
+            // Access the AudioManager's Dialogue AudioSource (third child)
+            AudioSource dialogueSource = audioManager.transform.GetChild(2).GetComponent<AudioSource>();
+            if (dialogueSource != null)
+            {
+                dialogueSource.volume = volume;
+                Debug.Log("Setting Dialogue volume to: " + volume);
+            }
         }
-        Debug.Log("Dialogue Volume set to: " + volume);
         PlayerPrefs.SetFloat("DialogueVolume", volume);
     }
     
     public void CloseSettings()
     {
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
         Debug.Log("Closing window");
         gameObject.SetActive(false);
     }

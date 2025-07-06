@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 
 public class DialogueViewScript : MonoBehaviour
 {
+    public AudioManagerScript audioManager; // Reference to AudioManagerScript
     public string state;
     public NPC focusedNPC;
     public GameObject npcSprite;
@@ -17,6 +18,7 @@ public class DialogueViewScript : MonoBehaviour
 
     public GameObject playerChoicesArea;
     public GameObject playerChoicePrefab;
+    // public GameObject playerChoiceWithTimePrefab;
 
     public Coroutine currentTypingCoroutine;
     public float typingSpeed = 0.05f;
@@ -30,12 +32,14 @@ public class DialogueViewScript : MonoBehaviour
 
     void OnEnable()
     {
+        if(audioManager == null)
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         if (backButton != null && focusedNPC != null)
         {
             Debug.Log("Back button is set up for NPC: " + focusedNPC.npcName);
             // Remove any existing listeners first to prevent duplicates
             backButton.onClick.RemoveAllListeners();
-            backButton.onClick.AddListener(() => focusedNPC.RoomMode());        
+            backButton.onClick.AddListener(() => focusedNPC.RoomMode());
         }
         askedQuestionThisInteraction = false;
         // Initialize the dialogue view
@@ -49,6 +53,9 @@ public class DialogueViewScript : MonoBehaviour
 
     void Update()
     {
+        if(audioManager == null)
+            audioManager = AudioManagerScript.Instance;
+            
         // Check for input when waiting
         if (waitingForInput && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
@@ -66,6 +73,7 @@ public class DialogueViewScript : MonoBehaviour
     //Flow of dialogue view
     void ShowBaseDialogue()
     {
+        PlayDialogueSFXForNPC();
         backButton.gameObject.SetActive(true);
         if (state == "ShowBaseDialogue")
         {
@@ -76,6 +84,9 @@ public class DialogueViewScript : MonoBehaviour
         state = "ShowBaseDialogue";
         playerChoicesArea.SetActive(false);
         string baseLineToShow;
+
+
+
         if (focusedNPC.isFirstTime)
         {
             baseLineToShow = focusedNPC.firstTimeBaseDialogue;
@@ -109,7 +120,7 @@ public class DialogueViewScript : MonoBehaviour
         int indexQ1 = -1;
         int indexQ2 = -1;
         int indexQ3 = -1;
-        
+
         Debug.Log("Focused NPC: " + focusedNPC.npcName);
         Debug.Log("Dialogue Data Length: " + focusedNPC.dialogueData.dialogues.Length);
 
@@ -155,8 +166,8 @@ public class DialogueViewScript : MonoBehaviour
     }
 
     IEnumerator CheckIfQuestionAreAvailable(List<int> validIndices)
-    {   
-        if(state == "CheckIfQuestionAreAvailable")
+    {
+        if (state == "CheckIfQuestionAreAvailable")
         {
             Debug.LogWarning("CheckIfQuestionAreAvailable called while already in CheckIfQuestionAreAvailable state. This might cause unexpected behavior.");
             yield break;
@@ -194,7 +205,20 @@ public class DialogueViewScript : MonoBehaviour
         foreach (int index in validIndices)
         {
             GameObject choice = Instantiate(playerChoicePrefab, playerChoicesArea.transform);
-            choice.GetComponentInChildren<TextMeshProUGUI>().text = focusedNPC.dialogueData.dialogues[index].ourQuestion;
+            TextMeshProUGUI textComponent = choice.GetComponentInChildren<TextMeshProUGUI>();
+            string fullText = focusedNPC.dialogueData.dialogues[index].ourQuestion + " (" + focusedNPC.dialogueData.dialogues[index].timeItWillTake + " mins)";
+            textComponent.text = fullText;
+
+            // Force the text to update and check if it needs multiple lines
+            textComponent.ForceMeshUpdate();
+            if (textComponent.textInfo.lineCount > 1)
+            {
+                // Directly adjust the RectTransform height based on extra lines
+                RectTransform rectTransform = choice.GetComponent<RectTransform>();
+                int extraLines = textComponent.textInfo.lineCount - 1;
+                rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + (extraLines * 50f));
+            }
+
             Button choiceButton = choice.GetComponent<Button>();
             choiceButton.onClick.AddListener(() => ShowNPCQuestionResponse(index));
         }
@@ -202,6 +226,9 @@ public class DialogueViewScript : MonoBehaviour
 
     void ShowNPCQuestionResponse(int index)
     {
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
+        PlayDialogueSFXForNPC();
+        GameManagerScript.Instance.timer += focusedNPC.dialogueData.dialogues[index].timeItWillTake;
         backButton.gameObject.SetActive(false);
         askedQuestionThisInteraction = true;
         playerChoicesArea.SetActive(false);
@@ -233,7 +260,7 @@ public class DialogueViewScript : MonoBehaviour
             // If no follow-up choices, return to base dialogue
             ShowBaseDialogue();
         }
-        
+
     }
 
     void ShowPlayerChoices(int index)
@@ -247,7 +274,19 @@ public class DialogueViewScript : MonoBehaviour
         foreach (PlayerChoiceSO choice in playerChoices)
         {
             GameObject choiceObj = Instantiate(playerChoicePrefab, playerChoicesArea.transform);
-            choiceObj.GetComponentInChildren<TextMeshProUGUI>().text = choice.ourChoice;
+            TextMeshProUGUI textComponent = choiceObj.GetComponentInChildren<TextMeshProUGUI>();
+            textComponent.text = choice.ourChoice;
+
+            // Force the text to update and check if it needs multiple lines
+            textComponent.ForceMeshUpdate();
+            if (textComponent.textInfo.lineCount > 1)
+            {
+                // Directly adjust the RectTransform height based on extra lines
+                RectTransform rectTransform = choiceObj.GetComponent<RectTransform>();
+                int extraLines = textComponent.textInfo.lineCount - 1;
+                rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + (extraLines * 50f));
+            }
+
             Button choiceButton = choiceObj.GetComponent<Button>();
             choiceButton.onClick.AddListener(() => ShowResponseToPlayerChoice(choice));
         }
@@ -255,6 +294,8 @@ public class DialogueViewScript : MonoBehaviour
 
     void ShowResponseToPlayerChoice(PlayerChoiceSO choice)
     {
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
+        PlayDialogueSFXForNPC();
         playerChoicesArea.SetActive(false);
         state = "ShowResponseToPlayerChoice";
         ResetText();
@@ -270,7 +311,8 @@ public class DialogueViewScript : MonoBehaviour
         if (choice.hasFollowUpPlayerResponse)
         {
             ShowFollowUpChoices(choice.followUpPlayerChoices);
-        } else
+        }
+        else
         {
             // If no follow-up choices, return to base dialogue
             ShowBaseDialogue();
@@ -293,7 +335,19 @@ public class DialogueViewScript : MonoBehaviour
         foreach (FollowUpPlayerChoiceSO followUpChoice in followUpChoices)
         {
             GameObject choiceObj = Instantiate(playerChoicePrefab, playerChoicesArea.transform);
-            choiceObj.GetComponentInChildren<TextMeshProUGUI>().text = followUpChoice.followUpChoice;
+            TextMeshProUGUI textComponent = choiceObj.GetComponentInChildren<TextMeshProUGUI>();
+            textComponent.text = followUpChoice.followUpChoice;
+
+            // Force the text to update and check if it needs multiple lines
+            textComponent.ForceMeshUpdate();
+            if (textComponent.textInfo.lineCount > 1)
+            {
+                // Directly adjust the RectTransform height based on extra lines
+                RectTransform rectTransform = choiceObj.GetComponent<RectTransform>();
+                int extraLines = textComponent.textInfo.lineCount - 1;
+                rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + (extraLines * 50f));
+            }
+
             Button choiceButton = choiceObj.GetComponent<Button>();
             choiceButton.onClick.AddListener(() => ShowResponseToFollowUpChoice(followUpChoice));
         }
@@ -301,6 +355,8 @@ public class DialogueViewScript : MonoBehaviour
 
     void ShowResponseToFollowUpChoice(FollowUpPlayerChoiceSO followUpChoice)
     {
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
+        PlayDialogueSFXForNPC();
         playerChoicesArea.SetActive(false);
         state = "ShowResponseToFollowUpChoice";
         ResetText();
@@ -355,11 +411,11 @@ public class DialogueViewScript : MonoBehaviour
             StopCoroutine(currentTypingCoroutine);
             currentTypingCoroutine = null;
         }
-        
+
         // Reset typing state
         isTyping = false;
         skipTyping = false;
-        
+
         npcDialogueText.text = "";
     }
 
@@ -373,6 +429,7 @@ public class DialogueViewScript : MonoBehaviour
 
     IEnumerator TypeLetterByLetter(string text)
     {
+        PlayDialogueSFXForNPC();
         isTyping = true;
         skipTyping = false;
         typingStartTime = Time.time;
@@ -396,11 +453,11 @@ public class DialogueViewScript : MonoBehaviour
 
         isTyping = false;
         skipTyping = false;
-        if(state != "NoQuestionsAvailable")
+        if (state != "NoQuestionsAvailable")
             yield return StartCoroutine(WaitForInput());
         GoToNextState();
     }
-    
+
     void GoToNextState()
     {
         if (inGoToNextState)
@@ -460,7 +517,7 @@ public class DialogueViewScript : MonoBehaviour
             case "ShowFollowUpChoices":
                 Debug.Log("Showing follow-up choices.");
                 // Handled in ShowFollowUpChoices
-                inGoToNextState = false; 
+                inGoToNextState = false;
                 break;
             case "ShowResponseToFollowUpChoice":
                 // Handled in ShowNPCResponseToFollowUpChoiceSequentially
@@ -470,17 +527,46 @@ public class DialogueViewScript : MonoBehaviour
                 Debug.Log("Finished showing NPC response to follow-up choice sequentially.");
                 // Handled in ShowNPCResponseToFollowUpChoiceSequentially
                 ShowBaseDialogue();
-                inGoToNextState = false; 
+                inGoToNextState = false;
                 break;
             case "NoQuestionsAvailable":
                 Debug.Log("No questions available, returning to room mode.");
                 StartCoroutine(WaitForInputThenRoomMode());
-                inGoToNextState = false; 
+                inGoToNextState = false;
                 break;
             default:
                 Debug.LogWarning("Unknown state: " + state);
                 inGoToNextState = false; // Reset inGoToNextState for unknown state
                 break;
         }
+    }
+    
+    void PlayDialogueSFXForNPC()
+    {
+        if (focusedNPC == null)
+        {
+            Debug.LogWarning("playDialogueSFXForNPC called with null NPC.");
+            return;
+        }
+
+        AudioClip dialogueClip = null;
+
+        switch (focusedNPC.npcName)
+        {
+            case "Nikolas":
+                dialogueClip = audioManager.nikolasDialogueClip;
+                break;
+            case "Renatta":
+                dialogueClip = audioManager.renattaDialogueClip;
+                break;
+            case "Gunawan":
+                dialogueClip = audioManager.gunawanDialogueClip;
+                break;
+            default:
+                Debug.LogWarning("No dialogue clip found for NPC: " + focusedNPC.npcName);
+                return;
+        }
+
+        audioManager.PlayDialogue(dialogueClip);
     }
 }

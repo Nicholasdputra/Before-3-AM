@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class NPC : MonoBehaviour
 {
+    AudioManagerScript audioManager;
     public string npcName;
     public Sprite npcSprite;
     // public int favorability;
@@ -24,6 +25,8 @@ public class NPC : MonoBehaviour
 
     void Start()
     {
+        if(audioManager == null)
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         Button npcButton = GetComponent<Button>();
         npcButton.onClick.AddListener(() => ConversationMode());
 
@@ -34,6 +37,7 @@ public class NPC : MonoBehaviour
 
     void ConversationMode()
     {
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
         DialogueViewScript dialogueViewScript = dialogueView.GetComponent<DialogueViewScript>();
         dialogueViewScript.focusedNPC = this;
         dialogueViewScript.state = "";
@@ -43,6 +47,7 @@ public class NPC : MonoBehaviour
 
     public void RoomMode()
     {
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
         DialogueViewScript dialogueViewScript = dialogueView.GetComponent<DialogueViewScript>();
         dialogueViewScript.focusedNPC = null;
         dialogueViewScript.state = "";

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class VoteViewScript : MonoBehaviour
 {
+    AudioManagerScript audioManager;
     [Header("Vote Elements")]
     public GameObject VoteView;
     public GameObject VoteButtonPrefab;
@@ -21,6 +22,7 @@ public class VoteViewScript : MonoBehaviour
     public GameObject notesButton;
     public GameObject backButton;
     public GameObject roomView;
+    public GameObject chooseWhoToVoteText;
 
     [Header("Ending UI Elements")]
     public GameObject endingPanel;
@@ -43,7 +45,20 @@ public class VoteViewScript : MonoBehaviour
 
     void OnEnable()
     {
+        if(audioManager == null)
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         //Remove all existing listeners to prevent duplicates
+        SetUpButtons();
+        RandomizeChosenNPC();
+    }
+    void Update()
+    {
+        if(audioManager == null)
+            audioManager = AudioManagerScript.Instance;
+    }
+
+    void SetUpButtons()
+    {
         backToMainMenuButton.GetComponent<Button>().onClick.RemoveAllListeners();
         backToMainMenuButton.onClick.AddListener(() =>
         {
@@ -55,16 +70,20 @@ public class VoteViewScript : MonoBehaviour
         {
             CloseVoteView();
         });
-
-        RandomizeChosenNPC();
     }
 
     public void OpenVoteView()
     {
+        if (audioManager == null)
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
+        chooseWhoToVoteText.SetActive(false);
         bottomPanelText.text = "";
         Time.timeScale = 0;
         // Activate the VoteView GameObject
         VoteView.SetActive(true);
+        backButton.SetActive(true);
         gatherAndVoteButton.SetActive(false);
         notesButton.SetActive(false);
         StartCoroutine(RandomizeChosenNPC());
@@ -72,7 +91,10 @@ public class VoteViewScript : MonoBehaviour
 
     public void CloseVoteView()
     {
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
         VoteView.SetActive(false);
+        gatherAndVoteButton.SetActive(true);
+        notesButton.SetActive(true);
         chosenNPC.RoomMode();
         bottomPanelText.text = "";
         Time.timeScale = 1;
@@ -96,10 +118,17 @@ public class VoteViewScript : MonoBehaviour
             bottomPanelText.text += letter;
             yield return new WaitForSecondsRealtime(0.05f); // Use realtime to work with timeScale = 0
         }
-        ShowVoteOptions();
+        //clear the VoteButtonArea
+        foreach (Transform child in VoteButtonArea.transform)
+        {
+            Destroy(child.gameObject); // Clear existing vote buttons
+        }
+        VoteButtonArea.SetActive(true);
+        chooseWhoToVoteText.SetActive(true);
+        StartCoroutine(ShowVoteOptions());
     }
 
-    void ShowVoteOptions()
+    IEnumerator ShowVoteOptions()
     {
         // Here you can implement the logic to show the vote options
         // For example, enabling buttons for each NPC in npcList
@@ -111,11 +140,36 @@ public class VoteViewScript : MonoBehaviour
             Button buttonComponent = voteButton.GetComponent<Button>();
             Debug.Log("Button Component: " + buttonComponent);
             buttonComponent.onClick.AddListener(() => StartCoroutine(VoteButtonClicked(npc)));
+            yield return new WaitForSecondsRealtime(0.5f); // Add a small delay between button instantiations
         }
     }
 
     IEnumerator VoteButtonClicked(NPC npc)
     {
+        audioManager.PlaySFX(audioManager.buttonClickSFXClip);
+        AudioClip dialogueClip = null;
+
+        switch (npc.npcName)
+        {
+            case "Nikolas":
+                dialogueClip = audioManager.nikolasDialogueClip;
+                break;
+            case "Renatta":
+                dialogueClip = audioManager.renattaDialogueClip;
+                break;
+            case "Gunawan":
+                dialogueClip = audioManager.gunawanDialogueClip;
+                break;
+            default:
+                Debug.LogWarning("No dialogue clip found for NPC: " + npc.npcName);
+                break;
+        }
+
+        audioManager.PlayDialogue(dialogueClip);
+
+        VoteButtonArea.SetActive(false);
+        backButton.SetActive(false);
+
         Debug.Log("Vote button clicked for NPC: " + npc.npcName);
         npcIcon.GetComponent<Image>().sprite = npc.npcSprite;
         npcNameText.text = npc.npcName;
@@ -132,6 +186,21 @@ public class VoteViewScript : MonoBehaviour
 
     void EndingOne(NPC npc)
     {
+        if (audioManager == null)
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+
+        audioManager.StopBGM();
+        SetUpButtons();
+        
+        // Debug the BGM playback
+        Debug.Log("Attempting to play game over BGM");
+        Debug.Log("Game Over BGM Clip: " + audioManager.gameOverBGMClip);
+        
+        // Check BGM AudioSource volume
+        AudioSource bgmSource = audioManager.transform.GetChild(0).GetComponent<AudioSource>();
+        Debug.Log("BGM AudioSource volume: " + bgmSource.volume);
+        
+        audioManager.PlayBGM(audioManager.gameOverBGMClip);
         //Determine Ending Here
         endingPanel.SetActive(true);
         endingImage.sprite = endingOneSprites[DetermineWhichNPCItIs(npc)];
@@ -139,10 +208,24 @@ public class VoteViewScript : MonoBehaviour
         endingNameText.text = endingNames[0];
         endingDescText.text = endingDescTexts[0];
         hintText.text = hintTexts[0];
+        //save to playerprefs
+        PlayerPrefs.SetInt("Ending1Reached", 1);
     }
 
-    void EndingTwo(NPC npc)
+    public void EndingTwo()
     {
+        if (audioManager == null)
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+
+        
+        // Debug the BGM playback
+        Debug.Log("Attempting to play game over BGM (Ending Two)");
+        AudioSource bgmSource = audioManager.transform.GetChild(0).GetComponent<AudioSource>();
+        Debug.Log("BGM AudioSource volume: " + bgmSource.volume);
+        
+        audioManager.StopBGM();
+        audioManager.PlayBGM(audioManager.gameOverBGMClip);
+        SetUpButtons();
         //Determine Ending Here
         endingPanel.SetActive(true);
         endingImage.sprite = endingTwoSprite;
@@ -150,10 +233,23 @@ public class VoteViewScript : MonoBehaviour
         endingNameText.text = endingNames[1];
         endingDescText.text = endingDescTexts[1];
         hintText.text = hintTexts[1];
+        PlayerPrefs.SetInt("Ending2Reached", 1);
     }
 
-    void EndingThree(NPC npc)
+
+
+    public void EndingThree()
     {
+        if (audioManager == null)
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        
+        // Debug the BGM playback
+        Debug.Log("Attempting to play game over BGM (Ending Three)");
+        AudioSource bgmSource = audioManager.transform.GetChild(0).GetComponent<AudioSource>();
+        Debug.Log("BGM AudioSource volume: " + bgmSource.volume);
+        audioManager.StopBGM();
+        audioManager.PlayBGM(audioManager.gameOverBGMClip);
+        SetUpButtons();
         //Determine Ending Here
         endingPanel.SetActive(true);
         endingImage.sprite = endingThreeSprite;
@@ -161,6 +257,7 @@ public class VoteViewScript : MonoBehaviour
         endingNameText.text = endingNames[2];
         endingDescText.text = endingDescTexts[2];
         hintText.text = hintTexts[2];
+        PlayerPrefs.SetInt("Ending3Reached", 1);
     }
 
     int DetermineWhichNPCItIs(NPC npc)

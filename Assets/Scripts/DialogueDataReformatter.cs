@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class DialogueDataReformatter : MonoBehaviour
 {
     public DialogueDataSO[] dialogueDatas;
@@ -20,6 +21,7 @@ public class DialogueDataReformatter : MonoBehaviour
             DetermineHasChoices(dialogueData);
             ResetHasBeenSaidInDialogueData(dialogueData);
             ReformatForPlayerName(dialogueData);
+            CalculateTimeItWillTake(dialogueData);
         }
     }
 
@@ -120,12 +122,54 @@ public class DialogueDataReformatter : MonoBehaviour
             }
         }
     }
-    
+
     void ResetNPCFirstTimeDialogue()
     {
         foreach (var npc in npcList)
         {
             npc.isFirstTime = true;
         }
+    }
+
+    void CalculateTimeItWillTake(DialogueDataSO dialogueData)
+    {
+        foreach (var dialogue in dialogueData.dialogues)
+        {
+            dialogue.timeItWillTake = 0;
+            int count = 0;
+
+            foreach (string response in dialogue.npcQuestionResponse)
+            {
+                count += response.Length;
+            }
+
+            if (dialogue.hasPlayerChoices)
+            {
+                foreach (var choice in dialogue.playerChoices)
+                {
+                    count += choice.ourChoice.Length / dialogue.playerChoices.Length;
+                    foreach (string response in choice.responseToOurChoice)
+                    {
+                        count += response.Length / choice.responseToOurChoice.Length;
+                    }
+
+                    if (choice.hasFollowUpPlayerResponse)
+                    {
+                        foreach (var followUpChoice in choice.followUpPlayerChoices)
+                        {
+                            count += followUpChoice.followUpChoice.Length / choice.followUpPlayerChoices.Length;
+                            foreach (string response in followUpChoice.responseToFollowUpChoice)
+                            {
+                                count += response.Length / followUpChoice.responseToFollowUpChoice.Length;
+                            }
+                        }
+                    }
+                }
+            }
+            dialogue.timeItWillTake =
+            // count;
+            Mathf.CeilToInt(count/20);
+        }
+    
     }
 }
