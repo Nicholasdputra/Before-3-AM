@@ -12,6 +12,15 @@ public class PreGameScript : MonoBehaviour
     public Button confirmButton;
     public Button backButton;
 
+    public string[] preGameTexts;
+    public GameObject nameInputView;
+    public GameObject disclamerView;
+    public TextMeshProUGUI disclaimerText;
+
+    [Header("Font Assets")]
+    public TMP_FontAsset normalFont;
+    public TMP_FontAsset emphasisFont;
+
     void Start()
     {
         // Listen for when user finishes editing (including pressing Enter)
@@ -23,6 +32,12 @@ public class PreGameScript : MonoBehaviour
         // Set up button listeners
         confirmButton.onClick.AddListener(ConfirmButtonClicked);
         backButton.onClick.AddListener(BackButtonClicked);
+    }
+
+    void OnEnable()
+    {
+        if(nameInputView != null)
+            nameInputView.SetActive(true);
     }
     
     // Called when user presses Enter or clicks outside the input field
@@ -42,8 +57,42 @@ public class PreGameScript : MonoBehaviour
         if (CheckForValidUsername(username))
         {
             SaveUsername(username);
-            SceneManager.LoadScene("GameScene"); // Load the game scene
+            StartCoroutine(HeadToGameScene());
         }
+    }
+
+    IEnumerator HeadToGameScene()
+    {
+        // Load the game scene
+        Debug.Log("Username confirmed, loading game scene.");
+        nameInputView.SetActive(false);
+        disclamerView.SetActive(true);
+        foreach (string text in preGameTexts)
+        {
+            disclaimerText.text = ""; // Clear previous text
+
+            //if it's the last one, slowly make the font red
+            if (text == preGameTexts[preGameTexts.Length - 1])
+            {
+                disclaimerText.color = Color.red;
+                disclaimerText.fontSize = 100; // Optional: Increase font size for emphasis
+                disclaimerText.font = emphasisFont; // Use emphasis font
+            }
+            else
+            {
+                disclaimerText.color = Color.white;
+                disclaimerText.fontSize = 66; // Reset to normal size
+                disclaimerText.font = normalFont; // Use normal font
+            }
+
+            foreach (char letter in text)
+                {
+                    disclaimerText.text += letter;
+                    yield return new WaitForSecondsRealtime(0.05f); // Use realtime to work with timeScale = 0
+                }
+            yield return new WaitForSeconds(2f); // Optional delay for user feedback
+        }
+        SceneManager.LoadScene("GameScene");
     }
 
     void BackButtonClicked()

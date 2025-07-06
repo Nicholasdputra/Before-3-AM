@@ -4,31 +4,59 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class VoteViewScript : MonoBehaviour
 {
+    [Header("Vote Elements")]
     public GameObject VoteView;
-    public bool canVote;
-    public bool mustVote;
     public GameObject VoteButtonPrefab;
     public GameObject VoteButtonArea;
-
     public NPC[] npcList;
     public NPC chosenNPC;
     public GameObject npcIcon;
     public TextMeshProUGUI npcNameText;
     public TextMeshProUGUI bottomPanelText;
-
     public GameObject gatherAndVoteButton;
     public GameObject notesButton;
     public GameObject backButton;
+    public GameObject roomView;
 
-    void Start()
+    [Header("Ending UI Elements")]
+    public GameObject endingPanel;
+    public Image endingImage;
+    public TextMeshProUGUI endingText;
+    public TextMeshProUGUI endingNameText;
+    public TextMeshProUGUI endingDescText;
+    public TextMeshProUGUI hintText;
+    public Button backToMainMenuButton;
+
+    [Header("Ending Sprites and Texts")]
+    public Sprite[] endingOneSprites;
+    public Sprite endingTwoSprite;
+    public Sprite endingThreeSprite;
+    public string[] endingTexts;
+    public string[] endingNames;
+    public string[] endingDescTexts;
+    public string[] hintTexts;
+
+
+    void OnEnable()
     {
-        if (mustVote)
+        //Remove all existing listeners to prevent duplicates
+        backToMainMenuButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        backToMainMenuButton.onClick.AddListener(() =>
         {
-            backButton.SetActive(false);
-        }
+            SceneManager.LoadScene("MainMenu");
+        });
+
+        backButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        backButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            CloseVoteView();
+        });
+
+        RandomizeChosenNPC();
     }
 
     public void OpenVoteView()
@@ -44,18 +72,10 @@ public class VoteViewScript : MonoBehaviour
 
     public void CloseVoteView()
     {
-        if (!mustVote)
-        {
-            VoteView.SetActive(false);
-            chosenNPC.RoomMode();
-            bottomPanelText.text = "";
-            Time.timeScale = 1;
-        }
-    }
-
-    void OnEnable()
-    {
-        RandomizeChosenNPC();
+        VoteView.SetActive(false);
+        chosenNPC.RoomMode();
+        bottomPanelText.text = "";
+        Time.timeScale = 1;
     }
 
     IEnumerator RandomizeChosenNPC()
@@ -63,6 +83,7 @@ public class VoteViewScript : MonoBehaviour
         // Randomly select an NPC from the npcList
         int randomIndex = UnityEngine.Random.Range(0, npcList.Length);
         chosenNPC = npcList[randomIndex];
+        chosenNPC.roomView.SetActive(false);
 
         // Update the UI elements with the chosen NPC's details
         npcIcon.GetComponent<Image>().sprite = chosenNPC.npcSprite;
@@ -95,6 +116,7 @@ public class VoteViewScript : MonoBehaviour
 
     IEnumerator VoteButtonClicked(NPC npc)
     {
+        Debug.Log("Vote button clicked for NPC: " + npc.npcName);
         npcIcon.GetComponent<Image>().sprite = npc.npcSprite;
         npcNameText.text = npc.npcName;
         bottomPanelText.text = "";
@@ -105,14 +127,63 @@ public class VoteViewScript : MonoBehaviour
         }
 
         yield return new WaitUntil(CheckForInput);
-        DetermineEnding();
+        EndingOne(npc);
     }
 
-    void DetermineEnding()
+    void EndingOne(NPC npc)
     {
         //Determine Ending Here
+        endingPanel.SetActive(true);
+        endingImage.sprite = endingOneSprites[DetermineWhichNPCItIs(npc)];
+        endingText.text = endingTexts[0];
+        endingNameText.text = endingNames[0];
+        endingDescText.text = endingDescTexts[0];
+        hintText.text = hintTexts[0];
     }
-    
+
+    void EndingTwo(NPC npc)
+    {
+        //Determine Ending Here
+        endingPanel.SetActive(true);
+        endingImage.sprite = endingTwoSprite;
+        endingText.text = endingTexts[1];
+        endingNameText.text = endingNames[1];
+        endingDescText.text = endingDescTexts[1];
+        hintText.text = hintTexts[1];
+    }
+
+    void EndingThree(NPC npc)
+    {
+        //Determine Ending Here
+        endingPanel.SetActive(true);
+        endingImage.sprite = endingThreeSprite;
+        endingText.text = endingTexts[2];
+        endingNameText.text = endingNames[2];
+        endingDescText.text = endingDescTexts[2];
+        hintText.text = hintTexts[2];
+    }
+
+    int DetermineWhichNPCItIs(NPC npc)
+    {
+        if (npc.npcName == "Nikolas")
+        {
+            return 0;
+        }
+        else if (npc.npcName == "Renatta")
+        {
+            return 1;
+        }
+        else if (npc.npcName == "Gunawan")
+        {
+            return 2;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+
     bool CheckForInput()
     {
         return Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return);

@@ -30,7 +30,13 @@ public class DialogueViewScript : MonoBehaviour
 
     void OnEnable()
     {
-        backButton.onClick.AddListener(() => focusedNPC.RoomMode());
+        if (backButton != null && focusedNPC != null)
+        {
+            Debug.Log("Back button is set up for NPC: " + focusedNPC.npcName);
+            // Remove any existing listeners first to prevent duplicates
+            backButton.onClick.RemoveAllListeners();
+            backButton.onClick.AddListener(() => focusedNPC.RoomMode());        
+        }
         askedQuestionThisInteraction = false;
         // Initialize the dialogue view
         state = "InitialState";
@@ -60,7 +66,8 @@ public class DialogueViewScript : MonoBehaviour
     //Flow of dialogue view
     void ShowBaseDialogue()
     {
-        if(state == "ShowBaseDialogue")
+        backButton.gameObject.SetActive(true);
+        if (state == "ShowBaseDialogue")
         {
             Debug.LogWarning("ShowBaseDialogue called while already in ShowBaseDialogue state. This might cause unexpected behavior.");
             return;
@@ -155,7 +162,6 @@ public class DialogueViewScript : MonoBehaviour
             yield break;
         }
 
-        ResetText();
         if (validIndices.Count == 0)
         {
             state = "NoQuestionsAvailable";
@@ -196,6 +202,7 @@ public class DialogueViewScript : MonoBehaviour
 
     void ShowNPCQuestionResponse(int index)
     {
+        backButton.gameObject.SetActive(false);
         askedQuestionThisInteraction = true;
         playerChoicesArea.SetActive(false);
         state = "ShowNPCQuestionResponse";
@@ -216,7 +223,17 @@ public class DialogueViewScript : MonoBehaviour
         state = "ShowNPCQuestionResponseSequentially";
         string[] responses = focusedNPC.dialogueData.dialogues[index].npcQuestionResponse;
         yield return StartCoroutine(TypeSequentially(responses));
-        ShowPlayerChoices(index);
+
+        if (focusedNPC.dialogueData.dialogues[index].hasPlayerChoices)
+        {
+            ShowPlayerChoices(index);
+        }
+        else
+        {
+            // If no follow-up choices, return to base dialogue
+            ShowBaseDialogue();
+        }
+        
     }
 
     void ShowPlayerChoices(int index)
@@ -316,6 +333,7 @@ public class DialogueViewScript : MonoBehaviour
 
     IEnumerator WaitForInput()
     {
+        Debug.Log("Waiting for input...");
         waitingForInput = true;
         while (waitingForInput)
         {

@@ -12,10 +12,11 @@ public class DialogueDataSO : ScriptableObject
 [System.Serializable]
 public class DialogueSO
 {
+    public bool hasBeenSaid;
     public string ourQuestion;
     public string[] npcQuestionResponse;
+    public bool hasPlayerChoices;
     public PlayerChoiceSO[] playerChoices;
-    public bool hasBeenSaid;
 }
 
 [System.Serializable]
@@ -24,8 +25,7 @@ public class PlayerChoiceSO
     public string ourChoice;
     public string[] responseToOurChoice;
     public bool hasFollowUpPlayerResponse;
-    [SerializeField] // Make it more explicit
-    public FollowUpPlayerChoiceSO[] followUpPlayerChoices;
+    [SerializeField] public FollowUpPlayerChoiceSO[] followUpPlayerChoices;
 }
 
 [System.Serializable]

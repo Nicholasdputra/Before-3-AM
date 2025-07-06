@@ -5,14 +5,20 @@ using UnityEngine;
 public class DialogueDataReformatter : MonoBehaviour
 {
     public DialogueDataSO[] dialogueDatas;
+    public NPC[] npcList;
     public string playerName;
 
-    void Start()
+    void OnEnable()
     {
         playerName = PlayerPrefs.GetString("PlayerName", "Player");
-        
+
         foreach (var dialogueData in dialogueDatas)
         {
+            ResetNPCFirstTimeDialogue();
+            ResetPlayerNameInDialogueData(dialogueData);
+            DetermineHasFollowUpChoices(dialogueData);
+            DetermineHasChoices(dialogueData);
+            ResetHasBeenSaidInDialogueData(dialogueData);
             ReformatForPlayerName(dialogueData);
         }
     }
@@ -37,6 +43,89 @@ public class DialogueDataReformatter : MonoBehaviour
                     choice.responseToOurChoice[j] = choice.responseToOurChoice[j].Replace("{PlayerName}", playerName);
                 }
             }
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        foreach (var dialogueData in dialogueDatas)
+        {
+            ResetPlayerNameInDialogueData(dialogueData);
+            ResetHasBeenSaidInDialogueData(dialogueData);
+        }
+    }
+
+    void ResetPlayerNameInDialogueData(DialogueDataSO dialogueData)
+    {
+        foreach (var dialogue in dialogueData.dialogues)
+        {
+            dialogue.ourQuestion = dialogue.ourQuestion.Replace(playerName, "{PlayerName}");
+
+            for (int i = 0; i < dialogue.npcQuestionResponse.Length; i++)
+            {
+                dialogue.npcQuestionResponse[i] = dialogue.npcQuestionResponse[i].Replace(playerName, "{PlayerName}");
+            }
+
+            foreach (var choice in dialogue.playerChoices)
+            {
+                choice.ourChoice = choice.ourChoice.Replace(playerName, "{PlayerName}");
+                for (int j = 0; j < choice.responseToOurChoice.Length; j++)
+                {
+                    choice.responseToOurChoice[j] = choice.responseToOurChoice[j].Replace(playerName, "{PlayerName}");
+                }
+            }
+        }
+    }
+
+    void ResetHasBeenSaidInDialogueData(DialogueDataSO dialogueData)
+    {
+        foreach (var dialogue in dialogueData.dialogues)
+        {
+            dialogue.hasBeenSaid = false;
+        }
+    }
+
+    void DetermineHasChoices(DialogueDataSO dialogueData)
+    {
+        foreach (var dialogue in dialogueData.dialogues)
+        {
+            if (dialogue.playerChoices != null && dialogue.playerChoices.Length > 0)
+            {
+                dialogue.hasPlayerChoices = true;
+            }
+            else
+            {
+                dialogue.hasPlayerChoices = false;
+            }
+        }
+    }
+
+    void DetermineHasFollowUpChoices(DialogueDataSO dialogueData)
+    {
+        foreach (var dialogue in dialogueData.dialogues)
+        {
+            if (dialogue.playerChoices != null)
+            {
+                foreach (var choice in dialogue.playerChoices)
+                {
+                    if (choice.followUpPlayerChoices != null && choice.followUpPlayerChoices.Length > 0)
+                    {
+                        choice.hasFollowUpPlayerResponse = true;
+                    }
+                    else
+                    {
+                        choice.hasFollowUpPlayerResponse = false;
+                    }
+                }
+            }
+        }
+    }
+    
+    void ResetNPCFirstTimeDialogue()
+    {
+        foreach (var npc in npcList)
+        {
+            npc.isFirstTime = true;
         }
     }
 }

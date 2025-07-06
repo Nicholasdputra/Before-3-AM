@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: GunawanDialogueData
   m_EditorClassIdentifier: 
   dialogues:
-  - ourQuestion: Ask his name
+  - hasBeenSaid: 0
+    ourQuestion: What's your name?
     npcQuestionResponse:
-    - "Hah? You\u2019re asking my name now? We\u2019ve been sitting here long enough."
+    - "Hah? You\u2019re asking my name now? We\u2019ve been sitting here for long
+      enough."
     - "It\u2019s Gunawan. That\u2019s all you need to know."
     - "Don\u2019t waste my time with small talk."
+    hasPlayerChoices: 1
     playerChoices:
-    - ourChoice: Ask Are you not curious about my name
+    - ourChoice: Are you not curious about my name?
       responseToOurChoice:
       - Hah. Your name? Seriously?
       - Oh please. Why would I waste brain space on that?
@@ -29,8 +32,8 @@ MonoBehaviour:
       - "I\u2019m not calling you anything else."
       hasFollowUpPlayerResponse: 0
       followUpPlayerChoices: []
-    hasBeenSaid: 0
-  - ourQuestion: Ask what he remember
+  - hasBeenSaid: 0
+    ourQuestion: What do you remember before all this?
     npcQuestionResponse:
     - "Tch. Of course you\u2019d ask that."
     - What do you think I remember?
@@ -43,8 +46,9 @@ MonoBehaviour:
     - Ridiculous.
     - "Look, I don\u2019t care about the details."
     - "Whoever dragged me into this is gonna regret it. That\u2019s all that matters."
+    hasPlayerChoices: 1
     playerChoices:
-    - ourChoice: Keep staring at him
+    - ourChoice: '*Keep staring at him*'
       responseToOurChoice:
       - "Tch. What\u2019s with that look, Pebble?"
       - "You think if you stare long enough I\u2019ll spill something"
@@ -57,8 +61,8 @@ MonoBehaviour:
       - "That\u2019s all you\u2019re getting.  Don\u2019t push your luck."
       hasFollowUpPlayerResponse: 0
       followUpPlayerChoices: []
-    hasBeenSaid: 0
-  - ourQuestion: Ask his relationship with other
+  - hasBeenSaid: 0
+    ourQuestion: Do you know the others?
     npcQuestionResponse:
     - You mean those two clowns?
     - That calm guy?
@@ -74,9 +78,10 @@ MonoBehaviour:
     - And you?
     - Still Pebble.
     - "You\u2019re not dangerous, you\u2019re just in the way."
+    hasPlayerChoices: 0
     playerChoices: []
-    hasBeenSaid: 0
-  - ourQuestion: Ask him who he thinks the impostor is
+  - hasBeenSaid: 0
+    ourQuestion: Who do you think is the impostor? If there is one
     npcQuestionResponse:
     - "Tch. Of course one of them\u2019s the impostor."
     - "And I\u2019ve got my eyes on Brick Wall."
@@ -88,7 +93,7 @@ MonoBehaviour:
     - Poker face, always thinking three steps ahead.
     - "They\u2019re usually the ones pulling the strings."
     - "He\u2019s sitting there, watching us like we\u2019re pieces on his game board."
-    - "He\u2019s sitting there, watching us like we\u2019re pieces on his game board."
+    hasPlayerChoices: 1
     playerChoices:
     - ourChoice: What about the girl?
       responseToOurChoice:
@@ -103,27 +108,29 @@ MonoBehaviour:
       - Something about that guy just screams "trap."
       hasFollowUpPlayerResponse: 0
       followUpPlayerChoices: []
-    hasBeenSaid: 0
-  - ourQuestion: Ask what will you do if you are the impostor
+  - hasBeenSaid: 0
+    ourQuestion: What would you do if you were the impostor?
     npcQuestionResponse:
     - "Hah. Let me guess\u2026"
     - "You\u2019re wondering what I\u2019d do if I was the impostor, huh?"
-    - HAHAHHAHAHA you think i will idly sit right here
+    - HAHAHHAHAHA you think i would idly sit right here
     - "Nah I\u2019d win."
     - "I wouldn\u2019t waste time playing nice."
     - "I\u2019d move fast, hit hard, and make sure no one ever saw it coming."
     - So yeah. If I was the impostor, Pebble?
     - "You wouldn\u2019t be sitting there right now."
+    hasPlayerChoices: 0
     playerChoices: []
-    hasBeenSaid: 0
-  - ourQuestion: Ask If He Cares What Happens to the Others
+  - hasBeenSaid: 0
+    ourQuestion: Do you care about any of us?
     npcQuestionResponse:
     - Hah? Care? About them?
     - Listen, Pebble.
     - "This isn\u2019t some heartwarming team building exercise."
-    - "I don\u2019t need to care. I just need to win."
+    - "I don\u2019t need to care. I just need to live."
     - "That\u2019s the whole point, right?"
     - "Brick Wall? Can\u2019t trust him."
+    hasPlayerChoices: 1
     playerChoices:
     - ourChoice: What about her?
       responseToOurChoice:
@@ -135,4 +142,3 @@ MonoBehaviour:
       - "Sorry, Pebble. That\u2019s not in my vocabulary."
       hasFollowUpPlayerResponse: 0
       followUpPlayerChoices: []
-    hasBeenSaid: 0
