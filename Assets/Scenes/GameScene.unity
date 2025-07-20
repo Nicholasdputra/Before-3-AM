@@ -2706,7 +2706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: Gunawan
   npcSprite: {fileID: -732104472, guid: 2a893f5b9aaf6e648a11ceebf6317ba9, type: 3}
-  dialogueData: {fileID: 11400000, guid: ca3a8a8ba5f6f7044a1928cf7204d338, type: 2}
+  dialogueData: {fileID: 11400000, guid: 7bc492dae114d1f41b48b2c565a92d15, type: 2}
   firstTimeBaseDialogue: Huh! What do you want?
   nonFirstTimeBaseDialogue: Hmph, it's you again, you got more questions?
   notFirstQuestionDialogue: Are you done? or do you have any more questions?
@@ -8135,6 +8135,7 @@ MonoBehaviour:
   settingsPanel: {fileID: 1413261481}
   voteViewScript: {fileID: 527267927}
   hasPlayedClockReminder: 0
+  hasTriggeredEndingTwo: 0
 --- !u!114 &1711438408
 MonoBehaviour:
   m_ObjectHideFlags: 0
