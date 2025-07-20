@@ -27,22 +27,112 @@ public class DialogueDataReformatter : MonoBehaviour
 
     void ReformatForPlayerName(DialogueDataSO dialogueData)
     {
+        if (dialogueData == null || dialogueData.dialogues == null)
+        {
+            Debug.LogWarning("DialogueData or dialogues array is null");
+            return;
+        }
+
+        Debug.Log($"Reformatting dialogue data '{dialogueData.name}' for player name: '{playerName}'");
 
         foreach (var dialogue in dialogueData.dialogues)
         {
-            dialogue.ourQuestion = dialogue.ourQuestion.Replace("{PlayerName}", playerName);
+            if (dialogue == null) continue;
 
-            for (int i = 0; i < dialogue.npcQuestionResponse.Length; i++)
+            // Replace in question
+            if (!string.IsNullOrEmpty(dialogue.ourQuestion))
             {
-                dialogue.npcQuestionResponse[i] = dialogue.npcQuestionResponse[i].Replace("{PlayerName}", playerName);
+                string originalQuestion = dialogue.ourQuestion;
+                dialogue.ourQuestion = dialogue.ourQuestion.Replace("{PlayerName}", playerName);
+                if (originalQuestion != dialogue.ourQuestion)
+                {
+                    Debug.Log($"Replaced in question: '{originalQuestion}' -> '{dialogue.ourQuestion}'");
+                }
             }
 
-            foreach (var choice in dialogue.playerChoices)
+            // Replace in NPC responses
+            if (dialogue.npcQuestionResponse != null)
             {
-                choice.ourChoice = choice.ourChoice.Replace("{PlayerName}", playerName);
-                for (int j = 0; j < choice.responseToOurChoice.Length; j++)
+                for (int i = 0; i < dialogue.npcQuestionResponse.Length; i++)
                 {
-                    choice.responseToOurChoice[j] = choice.responseToOurChoice[j].Replace("{PlayerName}", playerName);
+                    if (!string.IsNullOrEmpty(dialogue.npcQuestionResponse[i]))
+                    {
+                        string original = dialogue.npcQuestionResponse[i];
+                        dialogue.npcQuestionResponse[i] = dialogue.npcQuestionResponse[i].Replace("{PlayerName}", playerName);
+                        if (original != dialogue.npcQuestionResponse[i])
+                        {
+                            Debug.Log($"Replaced in NPC response {i}: '{original}' -> '{dialogue.npcQuestionResponse[i]}'");
+                        }
+                    }
+                }
+            }
+
+            // Replace in player choices
+            if (dialogue.playerChoices != null)
+            {
+                foreach (var choice in dialogue.playerChoices)
+                {
+                    if (choice == null) continue;
+
+                    if (!string.IsNullOrEmpty(choice.ourChoice))
+                    {
+                        string original = choice.ourChoice;
+                        choice.ourChoice = choice.ourChoice.Replace("{PlayerName}", playerName);
+                        if (original != choice.ourChoice)
+                        {
+                            Debug.Log($"Replaced in player choice: '{original}' -> '{choice.ourChoice}'");
+                        }
+                    }
+
+                    if (choice.responseToOurChoice != null)
+                    {
+                        for (int j = 0; j < choice.responseToOurChoice.Length; j++)
+                        {
+                            if (!string.IsNullOrEmpty(choice.responseToOurChoice[j]))
+                            {
+                                string original = choice.responseToOurChoice[j];
+                                choice.responseToOurChoice[j] = choice.responseToOurChoice[j].Replace("{PlayerName}", playerName);
+                                if (original != choice.responseToOurChoice[j])
+                                {
+                                    Debug.Log($"Replaced in choice response {j}: '{original}' -> '{choice.responseToOurChoice[j]}'");
+                                }
+                            }
+                        }
+                    }
+
+                    if (choice.followUpPlayerChoices != null)
+                    {
+                        foreach (var followUpChoice in choice.followUpPlayerChoices)
+                        {
+                            if (followUpChoice == null) continue;
+
+                            if (!string.IsNullOrEmpty(followUpChoice.followUpChoice))
+                            {
+                                string original = followUpChoice.followUpChoice;
+                                followUpChoice.followUpChoice = followUpChoice.followUpChoice.Replace("{PlayerName}", playerName);
+                                if (original != followUpChoice.followUpChoice)
+                                {
+                                    Debug.Log($"Replaced in follow-up choice: '{original}' -> '{followUpChoice.followUpChoice}'");
+                                }
+                            }
+
+                            if (followUpChoice.responseToFollowUpChoice != null)
+                            {
+                                for (int k = 0; k < followUpChoice.responseToFollowUpChoice.Length; k++)
+                                {
+                                    if (!string.IsNullOrEmpty(followUpChoice.responseToFollowUpChoice[k]))
+                                    {
+                                        string original = followUpChoice.responseToFollowUpChoice[k];
+                                        followUpChoice.responseToFollowUpChoice[k] = followUpChoice.responseToFollowUpChoice[k].Replace("{PlayerName}", playerName);
+                                        if (original != followUpChoice.responseToFollowUpChoice[k])
+                                        {
+                                            Debug.Log($"Replaced in follow-up response {k}: '{original}' -> '{followUpChoice.responseToFollowUpChoice[k]}'");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

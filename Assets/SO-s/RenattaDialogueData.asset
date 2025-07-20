@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: RenattaDialogueData
   m_EditorClassIdentifier: 
   dialogues:
-  - hasBeenSaid: 1
+  - hasBeenSaid: 0
     ourQuestion: What's your name?
+    timeItWillTake: 14
     npcQuestionResponse:
     - M-My name?
     - "Um\u2026 it\u2019s Renatta\u2026 I-I\u2019m\u2026 I\u2019m just\u2026 just
@@ -39,9 +40,10 @@ MonoBehaviour:
       followUpPlayerChoices:
       - followUpChoice: Tell her your real name
         responseToFollowUpChoice:
-        - " P-Please don\u2019t do s-something like that again {PlayerName}"
+        - " P-Please don\u2019t do s-something like that again {PlayerName}..."
   - hasBeenSaid: 0
     ourQuestion: What do you remember doing before this?
+    timeItWillTake: 18
     npcQuestionResponse:
     - I-I was I was streaming..
     - 'It was just a normal night... '
@@ -58,6 +60,7 @@ MonoBehaviour:
     playerChoices: []
   - hasBeenSaid: 0
     ourQuestion: You seem really scared
+    timeItWillTake: 22
     npcQuestionResponse:
     - I-I um.. I... Sorry
     - "I... I just... I\u2019ve never been good with people."
@@ -74,6 +77,7 @@ MonoBehaviour:
     playerChoices: []
   - hasBeenSaid: 0
     ourQuestion: Ask her is Rennata is a real  name
+    timeItWillTake: 14
     npcQuestionResponse:
     - "uh\u2026 well\u2026 no, actually."
     - "Renatta\u2019s my streamer name."
@@ -88,6 +92,7 @@ MonoBehaviour:
     playerChoices: []
   - hasBeenSaid: 0
     ourQuestion: Ask more about her job
+    timeItWillTake: 17
     npcQuestionResponse:
     - "Oh, um\u2026 I-I\u2019m a streamer."
     - A Vtuber actually...
@@ -102,6 +107,7 @@ MonoBehaviour:
     playerChoices: []
   - hasBeenSaid: 0
     ourQuestion: Do you know anyone here?
+    timeItWillTake: 27
     npcQuestionResponse:
     - "N-No\u2026 I don\u2019t know anyone here."
     - "I\u2019ve never seen them before\u2026 not in real life\u2026 "
@@ -119,6 +125,7 @@ MonoBehaviour:
     playerChoices: []
   - hasBeenSaid: 0
     ourQuestion: What your opinion about this situation?
+    timeItWillTake: 23
     npcQuestionResponse:
     - "U-Um\u2026 well\u2026 I\u2026 I hate it"
     - "It feels like\u2026 a game that\u2019s built to make us doubt each other."
@@ -135,6 +142,7 @@ MonoBehaviour:
     playerChoices: []
   - hasBeenSaid: 0
     ourQuestion: Ask What She Thinks Will Happen When Time Runs Out
+    timeItWillTake: 24
     npcQuestionResponse:
     - "T-The time limit\u2026"
     - "I\u2026 I don\u2019t know."
@@ -166,6 +174,7 @@ MonoBehaviour:
       followUpPlayerChoices: []
   - hasBeenSaid: 0
     ourQuestion: Who do you think is the impostor?
+    timeItWillTake: 14
     npcQuestionResponse:
     - "U-Um\u2026"
     - "C-Can I\u2026 really tell you?"
@@ -180,6 +189,7 @@ MonoBehaviour:
     playerChoices: []
   - hasBeenSaid: 0
     ourQuestion: Ask her if she the impostor what would she do
+    timeItWillTake: 36
     npcQuestionResponse:
     - "\u2026Eh!?"
     - "W-Why\u2026 why would you ask me that?"
