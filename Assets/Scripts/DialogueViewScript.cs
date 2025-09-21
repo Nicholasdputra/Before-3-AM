@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
-using Unity.VisualScripting;
 
 public class DialogueViewScript : MonoBehaviour
 {
@@ -34,14 +32,14 @@ public class DialogueViewScript : MonoBehaviour
     {
         if(audioManager == null)
             audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+
         if (backButton != null && focusedNPC != null)
         {
-            Debug.Log("Back button is set up for NPC: " + focusedNPC.npcName);
-            // Remove any existing listeners first to prevent duplicates
             backButton.onClick.RemoveAllListeners();
             backButton.onClick.AddListener(() => focusedNPC.RoomMode());
         }
         askedQuestionThisInteraction = false;
+
         // Initialize the dialogue view
         state = "InitialState";
         npcName.text = focusedNPC.npcName;
@@ -75,45 +73,40 @@ public class DialogueViewScript : MonoBehaviour
     {
         PlayDialogueSFXForNPC();
         backButton.gameObject.SetActive(true);
+
         if (state == "ShowBaseDialogue")
         {
             Debug.LogWarning("ShowBaseDialogue called while already in ShowBaseDialogue state. This might cause unexpected behavior.");
             return;
         }
-        Debug.Log("ShowBaseDialogue called");
+
         state = "ShowBaseDialogue";
         playerChoicesArea.SetActive(false);
         string baseLineToShow;
-
-
 
         if (focusedNPC.isFirstTime)
         {
             baseLineToShow = focusedNPC.firstTimeBaseDialogue;
             ResetText();
-            Debug.Log("First time dialogue shown: " + baseLineToShow);
             currentTypingCoroutine = StartCoroutine(TypeLetterByLetter(baseLineToShow));
-            focusedNPC.isFirstTime = false; // Set to false after the first interaction
+            focusedNPC.isFirstTime = false;
         }
         else if (focusedNPC.nonFirstTimeBaseDialogue != null && !askedQuestionThisInteraction)
         {
             baseLineToShow = focusedNPC.nonFirstTimeBaseDialogue;
             ResetText();
-            Debug.Log("Non-first time dialogue shown: " + baseLineToShow);
             currentTypingCoroutine = StartCoroutine(TypeLetterByLetter(baseLineToShow));
         }
         else if (askedQuestionThisInteraction)
         {
             baseLineToShow = focusedNPC.notFirstQuestionDialogue;
             ResetText();
-            Debug.Log("Asked question this interaction, showing: " + baseLineToShow);
             currentTypingCoroutine = StartCoroutine(TypeLetterByLetter(baseLineToShow));
         }
     }
 
     void DetermineWhichQuestionsToShow()
     {
-        Debug.Log("DetermineWhichQuestionsToShow called");
         state = "DetermineWhichQuestionsToShow";
         // Reset indices to -1
         // This ensures that if no questions are available, the indices remain -1
@@ -161,7 +154,6 @@ public class DialogueViewScript : MonoBehaviour
             validIndices.Add(indexQ3);
 
         validIndices.Sort(); // Now only contains valid dialogue indices
-        Debug.Log("Valid indices for questions: " + string.Join(", ", validIndices));
         StartCoroutine(CheckIfQuestionAreAvailable(validIndices));
     }
 
@@ -169,14 +161,12 @@ public class DialogueViewScript : MonoBehaviour
     {
         if (state == "CheckIfQuestionAreAvailable")
         {
-            Debug.LogWarning("CheckIfQuestionAreAvailable called while already in CheckIfQuestionAreAvailable state. This might cause unexpected behavior.");
             yield break;
         }
 
         if (validIndices.Count == 0)
         {
             state = "NoQuestionsAvailable";
-            Debug.Log("No more questions available for this NPC.");
             playerChoicesArea.SetActive(false);
             npcName.text = PlayerPrefs.GetString("PlayerName", "Player");
             ResetText();
@@ -184,14 +174,12 @@ public class DialogueViewScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Questions are available for this NPC.");
             ShowPlayerQuestions(validIndices);
         }
     }
 
     void ShowPlayerQuestions(List<int> validIndices)
     {
-        Debug.Log("ShowPlayerQuestions called with valid indices: " + string.Join(", ", validIndices));
         playerChoicesArea.SetActive(true);
         state = "PlayerPickingQuestion";
 
@@ -206,7 +194,8 @@ public class DialogueViewScript : MonoBehaviour
         {
             GameObject choice = Instantiate(playerChoicePrefab, playerChoicesArea.transform);
             TextMeshProUGUI textComponent = choice.GetComponentInChildren<TextMeshProUGUI>();
-            string fullText = focusedNPC.dialogueData.dialogues[index].ourQuestion + " (" + focusedNPC.dialogueData.dialogues[index].timeItWillTake + " mins)";
+            DialogueSO dialogue = focusedNPC.dialogueData.dialogues[index];
+            string fullText = dialogue.ourQuestion + " (" + dialogue.timeItWillTake + " mins)";
             textComponent.text = fullText;
 
             // Force the text to update and check if it needs multiple lines
@@ -378,7 +367,7 @@ public class DialogueViewScript : MonoBehaviour
     {
         foreach (string response in responses)
         {
-            ResetText(); // Clear previous text before typing new response
+            ResetText(); 
             // Wait for each typing coroutine to complete before starting the next
             yield return StartCoroutine(TypeLetterByLetter(response));
 
@@ -393,7 +382,7 @@ public class DialogueViewScript : MonoBehaviour
         waitingForInput = true;
         while (waitingForInput)
         {
-            yield return null; // Wait one frame
+            yield return null;
         }
     }
 
@@ -462,7 +451,6 @@ public class DialogueViewScript : MonoBehaviour
     {
         if (inGoToNextState)
         {
-            Debug.LogWarning("GoToNextState called while already in GoToNextState. This might cause unexpected behavior.");
             return;
         }
         inGoToNextState = true;
@@ -476,7 +464,6 @@ public class DialogueViewScript : MonoBehaviour
                 inGoToNextState = false;
                 break;
             case "ShowBaseDialogue":
-                Debug.Log("Base dialogue shown, determining questions to show next.");
                 DetermineWhichQuestionsToShow();
                 inGoToNextState = false;
                 break;
@@ -536,7 +523,7 @@ public class DialogueViewScript : MonoBehaviour
                 break;
             default:
                 Debug.LogWarning("Unknown state: " + state);
-                inGoToNextState = false; // Reset inGoToNextState for unknown state
+                inGoToNextState = false;
                 break;
         }
     }
