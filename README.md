@@ -111,3 +111,7 @@ Before 3 A.M. is a horror story game where you and three other people find yours
     </tr>
   </tbody>
 </table>
+# 🕹️ Controls
+| Button | Actions |
+|---|---|
+| Left Click | Used for picking dialogue options |
