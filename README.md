@@ -113,9 +113,13 @@ Before 3 A.M. is a horror story game where you and three other people find yours
 </table>
 
 ---
-
 # 🕹️ Controls
-
 | Button | Actions |
 |---|---|
 | Left Click | Used for picking dialogue options |
+
+---
+# 📰Team Members
+* Leonardi - Game Artist 🖌️
+* Nicholas Dwi Putra - Game Programmer 💻
+* Rafael Wirasana Wijaya - Game Designer 📃
