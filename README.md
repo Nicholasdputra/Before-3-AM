@@ -21,7 +21,6 @@
       </td>
       <td align="center"> 
         <img src="https://github.com/user-attachments/assets/8bb0dc31-1c4a-43bc-ad32-e8d485122e31" alt="Before 3 A.M. Archives" width="100%">
-
       </td>
     </tr>
   </tbody>
