@@ -1,3 +1,31 @@
+<table width="100%">
+  <thead>
+    <tr>    
+      <th colspan="2">
+        <h2>Gameplay Footage - May Take Time To Load</h2>
+      </th>
+    </tr>
+  </thead>
+  <tbody> 
+    <tr>
+      <td align="center"> 
+        <img src="https://github.com/user-attachments/assets/97b5049e-1ec6-4436-a246-63e4134bd859" alt="MofuMofu Ordering" width="100%">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/b25d0736-1dbf-4303-93a7-9d3383e8a359" alt="MofuMofu Giving" width="100%"> 
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/c084e6a9-c929-4f7f-add1-460c7345e4f2" alt="MofuMofu QTE" width="100%"> 
+      </td>
+      <td align="center"> 
+        <img src="https://github.com/user-attachments/assets/e5da4279-b79d-4d55-ada8-7108ca4539dd" alt="MofuMofu" width="100%">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 # 🕝 About
 Before 3 A.M. is a horror story game where you and three other people find yourself locked in a room with seemingly no exit and a note that tells you that one of you is responsible for having kidnapped everyone here. The note also says that the four of you have the power to 'vote' for who you think is responsible for all this and that if you figure it out, everyone lives, otherwise... Regardless, it says you have until before 3 A.M. to talk with everyone and rally everyone together and vote. Sadly, everyone seems to suspect each other so it's solely on you to be the decision maker.
 
