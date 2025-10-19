@@ -9,18 +9,19 @@
   <tbody> 
     <tr>
       <td align="center"> 
-        <img src="https://github.com/user-attachments/assets/97b5049e-1ec6-4436-a246-63e4134bd859" alt="MofuMofu Ordering" width="100%">
+        <img src="https://github.com/user-attachments/assets/97b5049e-1ec6-4436-a246-63e4134bd859" alt="Before 3 A.M. Voting" width="100%">
       </td>
       <td align="center">
-        <img src="https://github.com/user-attachments/assets/b25d0736-1dbf-4303-93a7-9d3383e8a359" alt="MofuMofu Giving" width="100%"> 
+        <img src="https://github.com/user-attachments/assets/b25d0736-1dbf-4303-93a7-9d3383e8a359" alt="Before 3 A.M. Dialogue" width="100%"> 
       </td>
     </tr>
     <tr>
       <td align="center">
-        <img src="https://github.com/user-attachments/assets/c084e6a9-c929-4f7f-add1-460c7345e4f2" alt="MofuMofu QTE" width="100%"> 
+        <img src="https://github.com/user-attachments/assets/c084e6a9-c929-4f7f-add1-460c7345e4f2" alt="Before 3 A.M. Notes" width="100%"> 
       </td>
       <td align="center"> 
-        <img src="https://github.com/user-attachments/assets/e5da4279-b79d-4d55-ada8-7108ca4539dd" alt="MofuMofu" width="100%">
+        <img src="https://github.com/user-attachments/assets/8bb0dc31-1c4a-43bc-ad32-e8d485122e31" alt="Before 3 A.M. Archives" width="100%">
+
       </td>
     </tr>
   </tbody>
