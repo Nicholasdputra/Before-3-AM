@@ -2,7 +2,7 @@
   <thead>
     <tr>    
       <th colspan="2">
-        <h2>Gameplay Footage - May Take Time To Load</h2>
+        <h1>Gameplay Footage - May Take Time To Load</h1>
       </th>
     </tr>
   </thead>
@@ -145,6 +145,16 @@ Before 3 A.M. is a horror story game where you and three other people find yours
 | Button | Actions |
 |---|---|
 | Left Click | Used for picking dialogue options |
+
+---
+# 💻 My Contributions
+
+* Chacter Dialogues
+* Voting
+* Ending Archives
+* Music & SFX
+* UI
+* Time Consumption Per Dialogue
 
 ---
 # 📰Team Members
